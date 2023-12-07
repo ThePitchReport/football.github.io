@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Your Bootstrap Website</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="email.css">
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            resize: vertical; /* Allow vertical resizing of the textarea */
+        }
+
+        input[type="submit"] {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Pro Functions Menu</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="footballproj.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-3">
+        <h1 style="color: green;">Login Successful</h1>
+        <p>You can write articles here.</p>
+        <p>Send the article to infoatthepitchreport@gmail.com for AI to analyse and check your artile. If it meets the requirements of no offensive vocabulary, it will automatically be posted in the News section.</p>
+        <p>First, click submit and copy the text. Then, click send email and paste it into the mail. If it does not work, go to your email and send it directly.</p>
+    </div>
+
+    <form id="articleForm">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" placeholder="Enter the title of your article" required>
+
+        <br>
+
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" placeholder="Enter your name" required>
+
+        <br>
+
+        <label for="content">Article Content:</label>
+        <textarea id="content" name="content" placeholder="Write your article here" required></textarea>
+
+        <br>
+
+        <input type="submit" value="Submit">
+        <button id="sendEmailButton" type="button" class="btn btn-primary">Send Email</button>
+    </form>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-pzjw8f+ua/CiFbeRVHxofrL+SkzefP2UBN/kye2d50TKsqqXiOqZD7Kw9lOT9bbi" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+    <script>
+        document.getElementById("articleForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            var title = document.getElementById('title').value;
+            var author = document.getElementById('author').value;
+            var content = document.getElementById('content').value;
+
+            // Create a new article entry
+            var articleEntry = "<div><h2>" + title + "</h2><p><strong>Author:</strong> " + author + "</p><p>" + content + "</p></div>";
+
+            // Open News.html in a new window/tab
+            var newsPage = window.open("News.html", "_blank");
+
+            // Check if the new window is opened successfully
+            if (newsPage) {
+                // Write the article entry to the new window
+                newsPage.document.write(articleEntry);
+            } else {
+                alert("Popup blocked! Please allow popups and try again.");
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    // Retrieve articles from local storage
+    var articles = JSON.parse(localStorage.getItem('articles')) || [];
+
+    // Display articles on the page
+    var newsContainer = document.getElementById('newsContainer');
+    articles.forEach(function (article) {
+        var articleEntry = "<div><h2>" + article.title + "</h2><p><strong>Author:</strong> " + article.author + "</p><p>" + article.content + "</p></div>";
+        newsContainer.innerHTML += articleEntry;
+    });
+
+    // Show modal when the "Send Email" button is clicked
+    document.getElementById("sendEmailButton").addEventListener("click", function () {
+        var emailContent = "Articles:\n";
+        articles.forEach(function (article) {
+            emailContent += "\nTitle: " + article.title + "\nAuthor: " + article.author + "\nContent: " + article.content + "\n\n";
+        });
+
+        // Show modal
+        showModal(emailContent);
+    });
+
+    // Function to show the modal
+    function showModal(emailContent) {
+        var modal = document.getElementById('myModal');
+        var modalContent = document.getElementById('modalContent');
+        var emailBody = document.getElementById('emailBody');
+
+        // Set the email content in the modal
+        emailBody.textContent = emailContent;
+
+        // Show the modal
+        modal.style.display = 'block';
+
+        // Close the modal when the close button is clicked
+        document.getElementById('closeModalButton').addEventListener('click', function () {
+            modal.style.display = 'none';
+        });
+
+        // Close the modal if the user clicks outside of it
+        window.addEventListener('click', function (event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
+});
+    
+
+    </script>
+    <!-- Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span id="closeModalButton" class="close">&times;</span>
+        <p id="emailBody"></p>
+        <button onclick="sendEmail()"><a href="mailto:infoatthepitchreport@gmail.com ">Send Email</a></button>
+    </div>
+</div>
+
+
+</body>
+</html>

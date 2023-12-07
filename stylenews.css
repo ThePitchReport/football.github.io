@@ -1,0 +1,50 @@
+.jumbotron{
+    background-color: white;
+    color: gold;
+    border: 10px solid;
+    font-family:'Times New Roman', Times, serif;
+    border-radius: 15px; /* Add curved outline */
+    text-align: center; /* Center align the text */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px; /* Set a minimum height if needed */
+    font-style: italic;
+    padding-left: 10px;
+}
+.navbar{
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    font-family:fantasy;
+    font-size: larger;
+    padding: 0.5px;
+}
+#website-navbar {
+    background-color: #3498db; /* Change the background color */
+    border-radius: 15px; /* Add curved outline */
+    border: none; /* Remove the border outline */
+}
+
+#website-navbar .navbar-brand {
+    color: #fff; /* Change the text color */
+    font-weight: bold;
+}
+
+#website-navbar .navbar-nav {
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+
+#website-navbar .navbar-nav .nav-item {
+    margin-right: 15px; /* Adjust the spacing between items */
+}
+
+#website-navbar .navbar-nav .nav-link {
+    color: #fff; /* Change the text color */
+}
+
+#website-navbar .navbar-toggler-icon {
+    background-color: #fff; /* Change the color of the toggle icon */
+}
